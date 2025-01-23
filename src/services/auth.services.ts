@@ -44,5 +44,18 @@ export class AuthService {
         return token
     }
 
+    static async getUserByEmail(email: string){
+        const findUser = await prisma.user.findUnique({where: {email}})
+        if(!findUser) throw new Error('User not found')
+        return findUser
+    }
+
+    static async getUserById(id: number){
+        const findUser =  await prisma.user.findUnique({where: {id}})
+        if(!findUser) throw new Error('User not found')
+        return findUser
+    }
+
+
 
 }

@@ -1,4 +1,5 @@
 import { AuthService } from "../services/auth.services";
+import { UserService } from "../services/user.services"
 import express, { Response, Request, } from 'express'
 
 export class AuthController {
@@ -20,5 +21,11 @@ export class AuthController {
             res.status(409).json({ message: 'Fallo al loguearse al usuario' })
         }
 
+    }
+
+    static async profile(req: Request, res: Response) {
+        const  email  = req.body.user.email
+        const user = await UserService.getByEmail(email)
+        res.status(200).json(user)
     }
 }
