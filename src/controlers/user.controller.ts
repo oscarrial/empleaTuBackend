@@ -7,4 +7,9 @@ export class UserController {
         const user = await UserService.getByEmail(email)
         res.status(200).json(user)
     }
+
+    static async getAll(req: Request, res: Response) {
+        const user = await UserService.getAll()
+        res.status(200).json(user)
+    }
 }

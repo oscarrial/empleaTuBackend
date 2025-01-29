@@ -16,16 +16,18 @@ export class AuthController {
         try {
             const userData = req.body
             const token = await AuthService.login(userData.email, userData.password)
+            res.cookie('token', token, {
+                maxAge: 60*60*1000, // 1hora de caducidad
+                httpOnly: true, // no se puede acceder mediante js
+                secure: false, // solo se envia si usas https
+                sameSite: 'strict', //Evita ataques CSRF
+            })
             res.status(201).json({ message: 'Login succesfully', token })
+           
         } catch (error) {
             res.status(409).json({ message: 'Fallo al loguearse al usuario' })
         }
 
     }
 
-    static async profile(req: Request, res: Response) {
-        const  email  = req.body.user.email
-        const user = await UserService.getByEmail(email)
-        res.status(200).json(user)
-    }
 }

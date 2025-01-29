@@ -5,7 +5,7 @@ const TOKEN_PASSWORD = process.env.TOKEN_PASSWORD || 'pass'
 
 export const isAuthenticate = (req: Request, res: Response, next:NextFunction):any => {
 
-    const token = req.headers.authorization?.split(" ")[1]
+    const token = req.cookies.res
     if (!token) return res.status(401).json({ error: 'Access denied' })
 
     try {
