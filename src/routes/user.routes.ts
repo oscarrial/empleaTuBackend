@@ -1,11 +1,14 @@
-import { Router } from "express"
-import { UserController } from "../controlers/user.controller"
-import {isAuthenticate} from "@/middlewares/auth.middleware"
+import { Router } from "express";
+import { isAuthenticate } from "../middlewares/auth.middleware";
+import { UserController } from "../controllers/user.controller";
+import { isAdmin } from "../middlewares/isAdmin.middleware";
 const router = Router()
 
-router.get('/profile',isAuthenticate ,UserController.profile)
 
-//Crea el endpoint que liste todos los usuarios de la web
-// A este ednpoint solo puede acceder el usuario admin
+    
+router.get('/profile', isAuthenticate , UserController.profile)
+//router.get('/', isAuthenticate , UserController.profile)
+//GET localhot:3000/api/users/
+router.get('/', isAuthenticate, isAdmin , UserController.getAll)
 
-export default router   
+export default router
