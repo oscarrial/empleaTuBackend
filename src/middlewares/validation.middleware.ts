@@ -10,4 +10,3 @@ export const ValidationMiddleware = (req: Request, res: Response,
     }
     next()
 }
-
